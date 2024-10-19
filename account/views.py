@@ -44,6 +44,8 @@ def user_login(request):
 #HttpResponse
 
 
+def user_register(request):
+    return render(request, "account/register.html", {})
 def user_logout(request):
     logout(request)
     return redirect('/')
