@@ -55,6 +55,34 @@ class Article(models.Model):
     updated = models.DateTimeField(auto_now=True)
     pub_date = models.DateField(default=timezone.now())
 
+    # is_published = models.BooleanField()
+
+    # article = Article.objects.get(id=16)
+    # article.is_published = 0
+    # article.save()
+
+    # is_published = models.DateField()
+    # is_published = models.TimeField()
+    # is_published = models.DateTimeField()
+    # is_published = models.DurationField(default=timezone.timedelta(days=23, hours=21, minutes=43, seconds=54))
+
+# article = Article.objects.get(id=17)
+# article.is_published.days += 45
+# article.save()
+
+# article = Article.objects.get(id=17)
+# article.is_published.days -= 1
+# article.save()
+
+    # is_published = models.IntegerField()
+    # is_published = models.BigIntegerField()
+
+    # is_published = models.EmailField('amir@ma.com')
+    # is_published = models.URLField(null=True)
+    floatfield = models.FloatField(default=1)
+
+
+
     def __str__(self):
         return f"{self.title} - {self.body[:30]}"
 
