@@ -55,6 +55,9 @@ class Article(models.Model):
     updated = models.DateTimeField(auto_now=True)
     pub_date = models.DateField(default=timezone.now())
 
+    # myfile = models.BinaryField(null=True)
+    myfile = models.FileField(upload_to='test', null=True)
+
     # is_published = models.BooleanField()
 
     # article = Article.objects.get(id=16)

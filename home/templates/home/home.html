@@ -108,7 +108,8 @@ https://templatemo.com/tm-551-stand-blog
             {% for article in articles %}
                   <div class="item">
 {#            <img src="{% static "images/banner-item-01.jpg" %}" alt="">#}
-            <img src="{{ article.image.url }}" alt="{{ article.title }}">
+{#            <img src="{{ article.image.url }}" alt="{{ article.title }}">#}
+            <img src="{{ article.myfile.url }}" alt="{{ article.title }}">
             <div class="item-content">
               <div class="main-content">
                 <div class="meta-category">
