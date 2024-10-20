@@ -42,9 +42,13 @@ class Article(models.Model):
     # title = models.CharField(max_length=70, help_text="Enter a valid title", unique=True, db_column="mytitle")
     # title = models.CharField(max_length=70, editable=False)
     # title = models.CharField(max_length=70, choices=CHOICES, default='A')
+
+    # id = models.BigAutoField(primary_key=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ManyToManyField(Category)
-    title = models.CharField(max_length=70, unique_for_date='pub_date')
+    # title = models.CharField(max_length=70, unique_for_date='pub_date')
+    # title = models.CharField(max_length=70, primary_key=True)
+    title = models.CharField(max_length=70)
     body = models.TextField()
     image = models.ImageField(upload_to='images/articles')
     created = models.DateTimeField(auto_now_add=True)
@@ -53,3 +57,7 @@ class Article(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.body[:30]}"
+
+
+class MyTest(models.Model):
+    title = models.CharField(max_length=50, primary_key=True)

@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+# auto-generated
+# auto incrementiong
+# integer
+# not null
 
 
 
@@ -13,4 +17,13 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+
+
+# Profile.objects.get(id=1)
+# Profile.objects.get(melicode=12312412)
+
+
+# class MyTestModel(models.Model):
+#     id = models.BigAutoField()
+#     my_id = models.BigAutoField()
 
