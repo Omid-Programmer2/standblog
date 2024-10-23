@@ -89,6 +89,24 @@ class Article(models.Model):
     def __str__(self):
         return f"{self.title} - {self.body[:30]}"
 
+    # def save(self, force_insert=False, force_update=False, using=None,
+    #          update_fields=None):
+
+    def save(self, *args, **kwargs):
+        print('hello')
+        super(Article, self).save(args, kwargs)
 
 class MyTest(models.Model):
     title = models.CharField(max_length=50, primary_key=True)
+
+
+class New(models.Model):
+    title = models.CharField(max_length=30)
+    des = models.TextField()
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        self.title = self.title.replace(' ', '-')
+        super(New, self).save(args, kwargs)

@@ -1,8 +1,16 @@
 from django.shortcuts import render
-from blog.models import Article
+from django.template.defaultfilters import title
+from blog.models import Article, New
 
 def home(request):
     articles = Article.objects.all()
+    # obj = New(title='jafar', des='jafar is a good guy')
+    # obj.save()
+
+    obj = New(id=2)
+    obj.title = 'farid rezaei asle ahwzie gol abadi'
+    obj.save()
+
     # article = Article.objects.get(id=10)
     # # article.myfile = bytes('hello codeyad', 'utf-8')
     # article.myfile = 'hello codeyad'.encode()
