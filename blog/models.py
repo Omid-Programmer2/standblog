@@ -57,6 +57,7 @@ class Article(models.Model):
 
     # myfile = models.BinaryField(null=True)
     myfile = models.FileField(upload_to='test', null=True)
+    status = models.BooleanField(default=True)
 
     # is_published = models.BooleanField()
 
