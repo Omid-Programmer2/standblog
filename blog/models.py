@@ -27,6 +27,16 @@ class Category(models.Model):
         return self.title
 
 
+class ArticleManager(models.Manager):
+    # def counter(self):
+    #     return len(self.all())
+    #
+    # def published(self):
+    #     return self.filter(published=True)
+
+    def get_queryset(self):
+        return super(ArticleManager, self).get_queryset().filter(status=True)
+
 class Article(models.Model):
     CHOICES = (
         ('A', 'پایتون'),
@@ -58,6 +68,13 @@ class Article(models.Model):
     # myfile = models.BinaryField(null=True)
     myfile = models.FileField(upload_to='test', null=True)
     status = models.BooleanField(default=True)
+    # objects = models.Manager()
+    # articles = models.Manager()
+    published = models.BooleanField(default=True)
+    # objects = ArticleManager()
+
+    objects = models.Manager()
+    custom_manager = ArticleManager()
 
     # is_published = models.BooleanField()
 

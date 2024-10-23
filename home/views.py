@@ -5,7 +5,13 @@ from django.views.generic import CreateView
 from blog.models import Article, New
 
 def home(request):
-    articles = Article.objects.all()
+    articles = Article.objects.all() #Manager
+    # print(Article.objects.counter())
+
+    # articles = Article.objects.published()
+    # articles = Article.custom_manager.all()
+
+    # articles = Article.articles.all() #Manager
     # articles = Article.objects.get(title='python')
     # articles = Article.objects.all()
     # art = Article.objects.get(title='python') #READ
