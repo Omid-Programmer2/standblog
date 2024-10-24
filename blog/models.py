@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import SET_DEFAULT, PROTECT, DO_NOTHING
 from django.utils import timezone
+from django.urls import reverse
 
 
 # article to user
@@ -101,6 +102,10 @@ class Article(models.Model):
     # is_published = models.EmailField('amir@ma.com')
     # is_published = models.URLField(null=True)
     floatfield = models.FloatField(default=1)
+
+    def get_absolute_url(self):
+        # return reverse('blog:article_detail', args=[str(self.id)])
+        return reverse('blog:article_detail', kwargs={'pk': self.id})
 
 
 
