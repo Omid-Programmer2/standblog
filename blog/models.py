@@ -77,8 +77,15 @@ class Article(models.Model):
 
     objects = models.Manager()
     custom_manager = ArticleManager()
-
     slug = models.SlugField(blank=True, unique=True)
+
+    class Meta:
+        # ordering = ('-created',)
+        # ordering = ('-updated')
+        # ordering = ('-updated', '-created')
+        verbose_name = 'post'
+        verbose_name_plural = 'stories'
+
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         self.slug = slugify(self.title)

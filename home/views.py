@@ -6,6 +6,9 @@ from django.urls import reverse
 
 def home(request):
     articles = Article.objects.all() #Manager
+    # recent_articles = Article.objects.all()[:2]
+    recent_articles = Article.objects.all().order_by('-created', '-updated')[:3]
+
     # print(reverse('blog:article_detail', args=[2]))
     # print(reverse('blog:article_detail', kwargs={'pk': 11}))
     # return redirect('/articles/detail/2')
@@ -49,7 +52,9 @@ def home(request):
     # print(article.myfile)
     # print(type(article.myfile))
     # print((article.myfile).decode())
-    return render(request, "home/home.html", {'articles':articles})
+    # return render(request, "home/home.html", {'articles':articles})
+    return render(request, "home/home.html", {'articles':articles, 'recent_articles':recent_articles})
+
 
 # GRUD
 #
