@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import SET_DEFAULT, PROTECT, DO_NOTHING
-from django.utils import timezone
+# from django.utils import timezone
 from django.urls import reverse
+from django.utils.text import slugify
 
 
 # article to user
@@ -64,7 +65,7 @@ class Article(models.Model):
     image = models.ImageField(upload_to='images/articles')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    pub_date = models.DateField(default=timezone.now())
+    # pub_date = models.DateField(default=timezone.now())
 
     # myfile = models.BinaryField(null=True)
     myfile = models.FileField(upload_to='test', null=True)
@@ -76,6 +77,12 @@ class Article(models.Model):
 
     objects = models.Manager()
     custom_manager = ArticleManager()
+
+    slug = models.SlugField(blank=True, unique=True)
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        self.slug = slugify(self.title)
+        super(Article, self).save()
 
     # is_published = models.BooleanField()
 
@@ -101,11 +108,11 @@ class Article(models.Model):
 
     # is_published = models.EmailField('amir@ma.com')
     # is_published = models.URLField(null=True)
-    floatfield = models.FloatField(default=1)
+    # floatfield = models.FloatField(default=1)
 
     def get_absolute_url(self):
         # return reverse('blog:article_detail', args=[str(self.id)])
-        return reverse('blog:article_detail', kwargs={'pk': self.id})
+        return reverse('blog:article_detail', kwargs={'slug':self.slug})
 
 
 
@@ -115,9 +122,9 @@ class Article(models.Model):
     # def save(self, force_insert=False, force_update=False, using=None,
     #          update_fields=None):
 
-    def save(self, *args, **kwargs):
-        print('hello')
-        super(Article, self).save(args, kwargs)
+    # def save(self, *args, **kwargs):
+    #     print('hello')
+    #     super(Article, self).save(args, kwargs)
 
 class MyTest(models.Model):
     title = models.CharField(max_length=50, primary_key=True)
