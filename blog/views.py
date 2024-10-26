@@ -13,6 +13,6 @@ def article_detail(request, slug):
 
 def article_list(request):
     articles = Article.objects.all()
-    return render(request, "blog/articles_list.html", {"articles": articles})
+    return render(request, "blog/articles_list.html", {"articles": articles, "name": "ghazanfar"})
 
 
