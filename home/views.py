@@ -63,3 +63,13 @@ def home(request):
 # Read
 # Update
 # Delete
+
+
+
+
+
+
+
+def sidebar(request):
+    data = {'name': 'amirhossein'}
+    return render(request, 'includes/sidebar.html', context=data)
