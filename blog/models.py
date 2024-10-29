@@ -56,8 +56,9 @@ class Article(models.Model):
     # title = models.CharField(max_length=70, choices=CHOICES, default='A')
 
     # id = models.BigAutoField(primary_key=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ManyToManyField(Category)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='articles')
+    category = models.ManyToManyField(Category, related_name='articles')
+    # category = models.ManyToManyField(Category, related_name='+')
     # title = models.CharField(max_length=70, unique_for_date='pub_date')
     # title = models.CharField(max_length=70, primary_key=True)
     title = models.CharField(max_length=70)
@@ -79,12 +80,12 @@ class Article(models.Model):
     custom_manager = ArticleManager()
     slug = models.SlugField(blank=True, unique=True)
 
-    class Meta:
-        # ordering = ('-created',)
-        # ordering = ('-updated')
-        # ordering = ('-updated', '-created')
-        verbose_name = 'post'
-        verbose_name_plural = 'stories'
+    # class Meta:
+    #     # ordering = ('-created',)
+    #     # ordering = ('-updated')
+    #     # ordering = ('-updated', '-created')
+    #     verbose_name = 'post'
+    #     verbose_name_plural = 'stories'
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
