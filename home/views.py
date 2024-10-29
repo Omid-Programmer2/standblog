@@ -53,8 +53,8 @@ def home(request):
     # print(type(article.myfile))
     # print((article.myfile).decode())
     # return render(request, "home/home.html", {'articles':articles})
-    # return render(request, "home/home.html", {'articles':articles, 'recent_articles':recent_articles})
-    return render(request, "home/home.html", {'articles':articles, "name": "codeyad"})
+    return render(request, "home/home.html", {'articles':articles, 'recent_articles':recent_articles})
+    # return render(request, "home/home.html", {'articles':articles, "name": "codeyad"})
 
 
 # GRUD
