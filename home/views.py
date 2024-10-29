@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.template.context_processors import request
 from django.template.defaultfilters import title
 from django.views.generic import CreateView
-from blog.models import Article, New
+from blog.models import Article
 from django.urls import reverse
 
 def home(request):
