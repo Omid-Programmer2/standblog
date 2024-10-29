@@ -2,22 +2,28 @@
 <header class="">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="home.html"><h2>Stand Blog<em>.</em></h2></a>
+            <a class="navbar-brand" href="{% url 'home_app:home' %}"><h2>Stand Blog<em>.</em></h2></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="home.html">Home
+{#                    <li class="nav-item active">#}
+{#                    <li class="nav-item">#}
+                    <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+{#                        <a class="nav-link" href="home.html">Home#}
+{#                        <a class="nav-link" href="home.html">Reza#}
+{#                        <a class="nav-link" href="home.html">{{ request.resolver_match.app_name }}#}
+{#                        <a class="nav-link" href="home.html">{{ request.resolver_match.url_name }}#}
+                        <a class="nav-link" href="{% url "home_app:home" %}">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="about.html">About Us</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if request.resolver_match.url_name == 'article_list' %}active{% endif %}">
                         <a class="nav-link" href="{% url "blog:article_list" %}">All Articles</a>
                     </li>
                     <li class="nav-item">

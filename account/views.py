@@ -28,7 +28,7 @@ def user_login(request):
 
     if request.user.is_authenticated:
         # return redirect('/')
-        return redirect('home_app:main')
+        return redirect('home_app:home')
 
     if request.method == 'POST':
         # print(request.POST.get('username'))
@@ -39,7 +39,7 @@ def user_login(request):
         # print(user.first_name)
         if user is not None:
             login(request, user)
-            return redirect('home_app:main')
+            return redirect('home_app:home')
     # print(type(render(request, 'account/login.html', {})))
     return render(request, 'account/login.html', {})
 
@@ -50,7 +50,7 @@ def user_login(request):
 def user_register(request):
     context = {'errors':[]}
     if request.user.is_authenticated:
-        return redirect('home_app:main')
+        return redirect('home_app:home')
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -67,9 +67,9 @@ def user_register(request):
 
         user = User.objects.create_user(username=username, password=password1, email=email)
         login(request, user)
-        return redirect('home_app:main')
+        return redirect('home_app:home')
 
     return render(request, "account/register.html", {})
 def user_logout(request):
     logout(request)
-    return redirect('home_app:main')
+    return redirect('home_app:home')
