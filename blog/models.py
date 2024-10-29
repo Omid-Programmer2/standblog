@@ -80,12 +80,12 @@ class Article(models.Model):
     custom_manager = ArticleManager()
     slug = models.SlugField(blank=True, unique=True)
 
-    # class Meta:
-    #     # ordering = ('-created',)
-    #     # ordering = ('-updated')
-    #     # ordering = ('-updated', '-created')
-    #     verbose_name = 'post'
-    #     verbose_name_plural = 'stories'
+    class Meta:
+        ordering = ('-created',)
+        # ordering = ('-updated')
+        # ordering = ('-updated', '-created')
+        # verbose_name = 'post'
+        # verbose_name_plural = 'stories'
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
