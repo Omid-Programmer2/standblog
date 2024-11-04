@@ -54,9 +54,10 @@ def search(request):
 
 def contactus(request):
     if request.method == 'POST':
-        form = ContactUsForm(request.POST)
+        form = ContactUsForm(data=request.POST)
         if form.is_valid():
             print(form.cleaned_data['text'])
             # return redirect('home_app:home')
-    form = ContactUsForm
+    else:
+        form = ContactUsForm()
     return render(request, "blog/contact_us.html", {'form': form})
