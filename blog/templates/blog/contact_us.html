@@ -21,20 +21,21 @@
 {#                                                {{ form.non_field_errors }}#}
 {#                                                {{ form.text.error }}#}
                                                 <div class="col-lg-12">
-                                                {{ form.non_field_errors }}
+                                                    {{ form }}
+{#                                                {{ form.non_field_errors }}#}
 {#                                                    {{ form }}#}
 {#                                                    {{ form.as_p }}#}
 {#                                                    {{ form.name.label }}:#}
 {#                                                    {{ form.name }}#}
-                                                    {% if form.name.errors %}
-                                                        <div class="alert alert-danger">{{ form.name.errors }}</div>
-                                                    {% endif %}
-                                                    {{ form.name }}
-
-                                                    {% if form.text.errors %}
-                                                        <div class="alert alert-danger">{{ form.text.errors }}</div>
-                                                    {% endif %}
-                                                    {{ form.text }}
+{#                                                    {% if form.name.errors %}#}
+{#                                                        <div class="alert alert-danger">{{ form.name.errors }}</div>#}
+{#                                                    {% endif %}#}
+{#                                                    {{ form.name }}#}
+{##}
+{#                                                    {% if form.text.errors %}#}
+{#                                                        <div class="alert alert-danger">{{ form.text.errors }}</div>#}
+{#                                                    {% endif %}#}
+{#                                                    {{ form.text }}#}
 
 
                                                 </div>

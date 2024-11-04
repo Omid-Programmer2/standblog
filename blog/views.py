@@ -58,6 +58,10 @@ def contactus(request):
         if form.is_valid():
             # print(form.cleaned_data['text'])
             print(form.cleaned_data['name'])
+            print(form.cleaned_data['birth_year'])
+            # print(type(form.cleaned_data['birth_year']))
+            print(form.cleaned_data['birth_year'].year)
+            print(form.cleaned_data['colors'])
             # return redirect('home_app:home')
     else:
         form = ContactUsForm()
