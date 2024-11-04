@@ -56,7 +56,8 @@ def contactus(request):
     if request.method == 'POST':
         form = ContactUsForm(data=request.POST)
         if form.is_valid():
-            print(form.cleaned_data['text'])
+            # print(form.cleaned_data['text'])
+            print(form.cleaned_data['name'])
             # return redirect('home_app:home')
     else:
         form = ContactUsForm()
