@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from blog.models import Article, Category, Comment
 from django.core.paginator import Paginator
+from .forms import ContactUsForm
 
 
 # def post_detail(request, title):
@@ -49,3 +50,13 @@ def search(request):
 
     # contains --> case sensitive
     # icontains --> case insensitive
+
+
+def contactus(request):
+    if request.method == 'POST':
+        form = ContactUsForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data['text'])
+            # return redirect('home_app:home')
+    form = ContactUsForm
+    return render(request, "blog/contact_us.html", {'form': form})
