@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from blog.models import Article, Category, Comment
+from django.template.defaultfilters import title
+
+from blog.models import Article, Category, Comment,Message
 from django.core.paginator import Paginator
-from .forms import ContactUsForm
+from .forms import ContactUsForm, MessageForm
 
 
 # def post_detail(request, title):
@@ -54,15 +56,22 @@ def search(request):
 
 def contactus(request):
     if request.method == 'POST':
-        form = ContactUsForm(data=request.POST)
+        # form = ContactUsForm(data=request.POST)
+        form = MessageForm(data=request.POST)
         if form.is_valid():
             # print(form.cleaned_data['text'])
-            print(form.cleaned_data['name'])
-            print(form.cleaned_data['birth_year'])
+            # print(form.cleaned_data['name'])
+            title = form.cleaned_data['title']
+            text = form.cleaned_data['text']
+            email = form.cleaned_data['email']
+            Message.objects.create(title=title, text=text, email=email)
+
+            # print(form.cleaned_data['birth_year'])
             # print(type(form.cleaned_data['birth_year']))
-            print(form.cleaned_data['birth_year'].year)
-            print(form.cleaned_data['colors'])
+            # print(form.cleaned_data['birth_year'].year)
+            # print(form.cleaned_data['colors'])
             # return redirect('home_app:home')
     else:
-        form = ContactUsForm()
+        # form = ContactUsForm()
+        form = MessageForm()
     return render(request, "blog/contact_us.html", {'form': form})

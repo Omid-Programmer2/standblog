@@ -3,6 +3,9 @@ from idlelib.autocomplete import ATTRS
 from django import forms
 from django.core.validators import ValidationError
 
+from blog.models import Message, Article
+
+
 class ContactUsForm(forms.Form):
     # text = forms.CharField(max_length=500, label='your message')
     # name = forms.CharField(max_length=10, label='your name', required=False)
@@ -41,3 +44,19 @@ class ContactUsForm(forms.Form):
     #         raise ValidationError("a can not be in name", code='a_in_name')
     #     return name
     #     # return name + 'reza'
+
+
+# class MessageForm(forms.Form):
+    # title = forms.CharField(max_length=100)
+    # text = forms.CharField(widget=forms.Textarea())
+    # email = forms.EmailField()
+
+
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        # model = Article
+        # fields = '__all__'
+        # fields = ('title', 'text', 'email')
+        exclude = ('date',)
