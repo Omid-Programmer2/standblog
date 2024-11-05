@@ -57,6 +57,17 @@ class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
         # model = Article
-        # fields = '__all__'
+        fields = '__all__'
         # fields = ('title', 'text', 'email')
-        exclude = ('date',)
+        # exclude = ('date',)
+
+        # widgets = {
+        #     'title': forms.TextInput(attrs={
+        #         'class': 'form-control',
+        #         'placeholder': 'Enter your title',
+        #         'style':'max-width:300px',
+        #     }),
+        #     'text': forms.Textarea(attrs={
+        #         'class': 'form-control',
+        #     })
+        # }

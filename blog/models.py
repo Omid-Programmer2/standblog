@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models import SET_DEFAULT, PROTECT, DO_NOTHING
+from django.db.models import SET_DEFAULT, PROTECT, DO_NOTHING, IntegerField
 # from django.utils import timezone
 from django.urls import reverse
 from django.utils import timezone
@@ -166,6 +166,7 @@ class Message(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField()
     email = models.EmailField()
+    age = IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     date = models.DateTimeField(default=timezone.now)
 

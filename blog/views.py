@@ -61,10 +61,16 @@ def contactus(request):
         if form.is_valid():
             # print(form.cleaned_data['text'])
             # print(form.cleaned_data['name'])
-            title = form.cleaned_data['title']
-            text = form.cleaned_data['text']
-            email = form.cleaned_data['email']
-            Message.objects.create(title=title, text=text, email=email)
+            # title = form.cleaned_data['title']
+            # title = form.cleaned_data.get('title')
+            # text = form.cleaned_data['text']
+            # email = form.cleaned_data['email']
+            # Message.objects.create(title=title, text=text, email=email)
+            # form.save()
+            instance =  form.save(commit=True)
+            # instance.age += 5
+            # instance.save()
+            # instance.bmi = instance.weight * instance.height
 
             # print(form.cleaned_data['birth_year'])
             # print(type(form.cleaned_data['birth_year']))

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load widget_tweaks %}
 {% block title %}contact us{% endblock %}
 {% block content %}
     <section class="contact-us">
@@ -21,7 +22,7 @@
 {#                                                {{ form.non_field_errors }}#}
 {#                                                {{ form.text.error }}#}
                                                 <div class="col-lg-12">
-                                                    {{ form }}
+                                                    {{ form.title|add_class:'form-control' }}
 {#                                                {{ form.non_field_errors }}#}
 {#                                                    {{ form }}#}
 {#                                                    {{ form.as_p }}#}
