@@ -4,6 +4,7 @@ from lib2to3.fixes.fix_input import context
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from .forms import LoginForm
 # User
 
 def user_login(request):
@@ -31,15 +32,27 @@ def user_login(request):
         return redirect('home_app:home')
 
     if request.method == 'POST':
-        # print(request.POST.get('username'))
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        # print(user)
-        # print(user.first_name)
-        if user is not None:
-            login(request, user)
+        # # print(request.POST.get('username'))
+        # username = request.POST.get('username')
+        # password = request.POST.get('password')
+        # user = authenticate(request, username=username, password=password)
+        # # print(user)
+        # # print(user.first_name)
+        # if user is not None:
+        #     login(request, user)
+        #     return redirect('home_app:home')
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = User.objects.get(username=form.cleaned_data['username'])
+            login (request, user)
+            # sms = request.
             return redirect('home_app:home')
+    else:
+        form = LoginForm()
+    return render(request, 'account/login.html', {'form': form})
+
+
+
     # print(type(render(request, 'account/login.html', {})))
     return render(request, 'account/login.html', {})
 
