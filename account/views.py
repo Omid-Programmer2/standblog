@@ -92,7 +92,15 @@ def user_edit(request):
         if form.is_valid():
             form.save()
 
-    return render(request, "account/edit.html", {'form': form})
+    def hi():
+        return "Hi Im amirhossein amiri"
+    var = {
+        # "test": "amirhossein"
+        # "test": hi
+        "test": [1,2,3]
+    }
+
+    return render(request, "account/edit.html", {'form': form, 'var': var})
 
 def user_logout(request):
     logout(request)
