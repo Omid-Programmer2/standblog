@@ -4,7 +4,7 @@ from lib2to3.fixes.fix_input import context
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm
+from .forms import LoginForm, UserEditForm
 # User
 
 def user_login(request):
@@ -83,6 +83,17 @@ def user_register(request):
         return redirect('home_app:home')
 
     return render(request, "account/register.html", {})
+
+def user_edit(request):
+    user = request.user
+    form = UserEditForm(instance=user)
+    if request.method == 'POST':
+        form = UserEditForm(instance=user, data=request.POST)
+        if form.is_valid():
+            form.save()
+
+    return render(request, "account/edit.html", {'form': form})
+
 def user_logout(request):
     logout(request)
     return redirect('home_app:home')
