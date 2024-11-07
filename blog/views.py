@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.template.defaultfilters import title
 
 from blog.models import Article, Category, Comment,Message
 from django.core.paginator import Paginator
 from .forms import ContactUsForm, MessageForm
+from django.views.generic.base import View
 
 
 # def post_detail(request, title):
@@ -81,3 +82,18 @@ def contactus(request):
         # form = ContactUsForm()
         form = MessageForm()
     return render(request, "blog/contact_us.html", {'form': form})
+
+
+
+class TestBaseView(View):
+    name = "amir"
+    def get(self, request):
+        return HttpResponse(self.name)
+
+
+class HelloToReza(TestBaseView):
+    name = "reza"
+
+class HelloToKarim(TestBaseView):
+    name = "karim"
+
