@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.template.defaultfilters import title
 
@@ -5,6 +6,7 @@ from blog.models import Article, Category, Comment,Message
 from django.core.paginator import Paginator
 from .forms import ContactUsForm, MessageForm
 from django.views.generic.base import View
+from django.views.generic import ListView
 
 
 # def post_detail(request, title):
@@ -28,15 +30,15 @@ def article_list(request):
     paginator = Paginator(articles, 1)
     # object_list = paginator.get_page(2)
     objects_list = paginator.get_page(page_number)
-    # return render(request, "blog/articles_list.html", {"articles": articles, "name": "ghazanfar"})
-    return render(request, "blog/articles_list.html", {"articles": objects_list})
+    # return render(request, "blog/article_list.html", {"articles": articles, "name": "ghazanfar"})
+    return render(request, "blog/article_list.html", {"articles": objects_list})
 
 def category_detail(request, pk=None):
     category = get_object_or_404(Category, id=pk)
     # articles = category.article_set.all()
     articles = category.articles.all()
     # articles = category.articles.+.all()
-    return render(request, "blog/articles_list.html", {'articles': articles})
+    return render(request, "blog/article_list.html", {'articles': articles})
 
 
 
@@ -48,8 +50,8 @@ def search(request):
     page_number = request.GET.get('page')
     paginator = Paginator(articles, 1)
     objects_list = paginator.get_page(page_number)
-    # return render(request, "blog/articles_list.html", {'articles': articles})
-    return render(request, "blog/articles_list.html", {'articles': objects_list})
+    # return render(request, "blog/article_list.html", {'articles': articles})
+    return render(request, "blog/article_list.html", {'articles': objects_list})
 
     # contains --> case sensitive
     # icontains --> case insensitive
@@ -85,15 +87,38 @@ def contactus(request):
 
 
 
-class TestBaseView(View):
-    name = "amir"
-    def get(self, request):
-        return HttpResponse(self.name)
+# class TestBaseView(View):
+#     name = "amir"
+#     def get(self, request):
+#         return HttpResponse(self.name)
+#
+#     # def post(self, request):
+#     #     return HttpResponse(self.name)
 
 
-class HelloToReza(TestBaseView):
-    name = "reza"
+# class HelloToReza(TestBaseView):
+#     name = "reza"
+#
+# class HelloToKarim(TestBaseView):
+#     name = "karim"
 
-class HelloToKarim(TestBaseView):
-    name = "karim"
 
+
+# class ListView(View):
+#     queryset = None
+#     template_name = None
+#
+#     def get(self, request):
+#         return render(request, self.template_name, {'object_list': self.queryset})
+#         # return render(request, self.template_name, {'articles': self.queryset})
+
+
+class ArticleList(ListView):
+    queryset = Article.objects.all()
+    # template_name = "blog/article_list.html"
+    template_name = "blog/article_list2.html"
+
+
+class UserList(ListView):
+    queryset = User.objects.all()
+    template_name = "blog/user_list.html"
