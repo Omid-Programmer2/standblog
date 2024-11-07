@@ -2,6 +2,8 @@
 {% load static %}
 {% load render_partial %}
 {% load social_share %}
+{% load filters %}
+{% load my_template_tags %}
 {% block title %}
     home
 {% endblock %}
@@ -47,14 +49,15 @@
                     <div class="main-content">
                         <div class="row">
                             <div class="col-lg-8">
-                                <span>Stand Blog HTML5 Template</span>
-                                <h4>Creative HTML Template For Bloggers!</h4>
+                                <span>{% current_time "%Y-%m-%d" %}</span>
+                                <h4>{% show_result "amir" %}</h4>
                             </div>
                             <div class="col-lg-4">
                                 <div class="main-button">
                                     {#                    <a rel="nofollow" href="https://templatemo.com/tm-551-stand-blog" target="_parent">Download Now!</a>#}
                                     <a rel="nofollow" href="https://templatemo.com/tm-551-stand-blog"
-                                       target="_parent">{{ name }}</a>
+{#                                       target="_parent">{{ name }}</a>#}
+                                       target="_parent">CODEYAD</a>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +90,10 @@
                                         </ul>
 {#                                        <p>{{ article.body|truncatewords:30 }}</p>#}
 {#                                        <p>{{ article.body|truncatechars:30 }}</p>#}
-                                        <p>{{ article.body|lower }}</p>
+{#                                        <p>{{ article.body|lower }}</p>#}
+{#                                        <p>{{ article.body|cutter:50 }}</p>#}
+                                        <p>{{ article.body|mytruncate:79 }}</p>
+
                                         <div class="post-options">
                                             <div class="row">
                                                 <div class="col-6">

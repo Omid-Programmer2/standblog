@@ -1,3 +1,4 @@
+{% load my_template_tags %}
 <div class="col-lg-4">
     <div class="sidebar">
         <div class="row">
@@ -17,16 +18,10 @@
                     </div>
                     <div class="content">
                         <ul>
-                            <li><a href="post-details.html">
 {#                                <h5>Vestibulum id turpis porttitor sapien facilisis scelerisque</h5>#}
 {#                                 <h5>{{ request.user.get_full_name }}</h5>#}
-                                   {% for article in recent_articles %}
-                                        <h5>{{ article.title }}</h5>
-                                        <span>{{ article.created }}</span>
-                                   {% endfor %}
 {#                                <span>May 31, 2020</span>#}
-                            </a></li>
-
+                            {% show_result recent_articles %}
                         </ul>
                     </div>
                 </div>
