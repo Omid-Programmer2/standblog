@@ -1,3 +1,5 @@
+from lib2to3.fixes.fix_input import context
+
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.template.defaultfilters import title
@@ -5,7 +7,7 @@ from django.template.defaultfilters import title
 from blog.models import Article, Category, Comment,Message
 from django.core.paginator import Paginator
 from .forms import ContactUsForm, MessageForm
-from django.views.generic.base import View
+from django.views.generic.base import View, TemplateView, RedirectView
 from django.views.generic import ListView
 
 
@@ -113,11 +115,35 @@ def contactus(request):
 #         # return render(request, self.template_name, {'articles': self.queryset})
 
 
-class ArticleList(ListView):
-    queryset = Article.objects.all()
-    # template_name = "blog/article_list.html"
-    template_name = "blog/article_list2.html"
+# class ArticleList(ListView):
+#     queryset = Article.objects.all()
+#     # template_name = "blog/article_list.html"
+#     template_name = "blog/article_list2.html"
 
+class HomePageRedirect(RedirectView):
+    # url = "/"
+    # url = "/articles/list"
+    # pattern_name = 'blog:article_list'
+    # pattern_name = 'home_app:home'
+    # pattern_name = 'blog:article_list'
+    pattern_name = 'blog:article_detail'
+    # permanent = True
+    query_string = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        print("amir")
+        print(self.request.user)
+        print(self.request.user.username)
+        return super().get_redirect_url(*args, **kwargs)
+
+class ArticleList(TemplateView):
+    # template_name = "blog/article_list2.html"
+    pass
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['object_list'] = Article.objects.all()
+    #     return context
 
 class UserList(ListView):
     queryset = User.objects.all()
