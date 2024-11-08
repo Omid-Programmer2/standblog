@@ -8,8 +8,8 @@ from blog.models import Article, Category, Comment,Message
 from django.core.paginator import Paginator
 from .forms import ContactUsForm, MessageForm
 from django.views.generic.base import View, TemplateView, RedirectView
-from django.views.generic import ListView
-
+from django.views.generic import ListView, DetailView,FormView
+from django.urls import reverse, reverse_lazy
 
 # def post_detail(request, title):
 def article_detail(request, slug):
@@ -148,3 +148,47 @@ class ArticleList(TemplateView):
 class UserList(ListView):
     queryset = User.objects.all()
     template_name = "blog/user_list.html"
+
+
+
+class ArticleDetailView(DetailView):
+    model = Article
+    # template_name = "blog/article_detail2.html"
+    # context_object_name = 'art'
+    # slug_field = 'karim'
+    # slug_url_kwarg = "item_slug"
+    # pk_url_kwarg = 'id'
+    # queryset = Article.objects.filter(published=True)
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['name'] = "amirhossein"
+    #     return context
+
+
+class ArticleListView(ListView):
+    model = Article
+    template_name = "blog/article_list.html"
+    context_object_name = 'articles'
+    paginate_by = 1
+    queryset = Article.objects.filter(published=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['name'] = "amirhossein"
+        return context
+
+
+class ContactUsView(FormView):
+    template_name = "blog/contact_us.html"
+    form_class = MessageForm
+    # success_url = '/'
+    # success_url = reverse("home_app:home")
+    success_url = reverse_lazy("home_app:home")
+
+    def form_valid(self, form):
+        form_data = form.cleaned_data
+        # Message.objects.create(title=form_data['title'])
+        Message.objects.create(**form_data)
+        # print(form_data['title'])
+        return super().form_valid(form)
