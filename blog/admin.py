@@ -30,6 +30,10 @@ class FilterByTitle(admin.SimpleListFilter):
             print(self.value())
             return queryset.filter(title__icontains=self.value())
 
+# class CommentInline(admin.TabularInline):
+class CommentInline(admin.StackedInline):
+    model = models.Comment
+
 @admin.register(models.Article)
 class ArticleAdmin(admin.ModelAdmin):
     # list_display = ('title', 'body', 'status')
@@ -41,6 +45,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_filter = ("status", "published", FilterByTitle)
     search_fields = ("title", "body")
     # fields = ("body", "title")
+    inlines = (CommentInline,)
 
 # admin.site.register(models.Article)
 admin.site.register(models.Category)
@@ -48,4 +53,5 @@ admin.site.register(models.Category)
 # admin.site.register(New)
 admin.site.register(models.Comment)
 admin.site.register(models.Message)
+admin.site.register(models.Like)
 

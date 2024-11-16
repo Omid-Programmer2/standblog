@@ -51,9 +51,16 @@
                                             <div class="row">
                                                 <div class="col-6">
                                                     <ul class="post-tags">
-                                                        <li><i class="fa fa-tags"></i></li>
-                                                        <li><a href="#">Best Templates</a>,</li>
-                                                        <li><a href="#">TemplateMo</a></li>
+{#                                                        <li><i class="fa fa-heart"></i></li>#}
+{#                                                        <li><i class="fa fa-heart-o"></i></li>#}
+                                                        {% if is_liked %}
+{#                                                        <li><a onclick="like('{{ article.slug }}', '{{ article.id }}')" href="{% url 'blog:like' article.slug article.id %}"><i id="like" style="font-size: 20px" class="fa fa-heart"></i>{{ article.likes.all.count }}</a></li>#}
+                                                        <li><a onclick="like('{{ article.slug }}', '{{ article.id }}')"><i id="like" style="font-size: 20px" class="fa fa-heart"></i><span id="count">{{ article.likes.all.count }}</span></a></li>
+                                                        {% else %}
+{#                                                        <li><a onclick="like('{{ article.slug }}', '{{ article.id }}')" href="{% url 'blog:like' article.slug article.id %}"><i id="like" style="font-size: 20px" class="fa fa-heart-o"></i>{{ article.likes.all.count }}</a></li>#}
+                                                        <li><a onclick="like('{{ article.slug }}', '{{ article.id }}')"><i id="like" style="font-size: 20px" class="fa fa-heart-o"></i><span id="count">{{ article.likes.all.count }}</span></a></li>
+                                                        {% endif %}
+{#                                                    <button onclick="like()" class="btn btn-danger">like</button>#}
                                                     </ul>
                                                 </div>
                                                 <div class="col-6">

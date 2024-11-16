@@ -36,5 +36,7 @@ urlpatterns = [
     path('message/delete/<int:pk>', views.MessageDeleteView.as_view(), name='messages_delete'),
     path('archive', views.ArchiveIndexArticleView.as_view(), name='archive'),
     path('archive/<int:year>', views.YearArchiveArticleView.as_view(), name='archive_year'),
+    path('like/<slug:slug>/<int:pk>', views.like, name='like'),
+    # path('test', views.test, name='test'),
 
 ]

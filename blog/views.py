@@ -1,10 +1,11 @@
 from lib2to3.fixes.fix_input import context
 
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.template.defaultfilters import title
 
-from blog.models import Article, Category, Comment,Message
+from blog.models import Article, Category, Comment, Message, Like
 from django.core.paginator import Paginator
 from .forms import ContactUsForm, MessageForm
 from django.views.generic.base import View, TemplateView, RedirectView
@@ -162,10 +163,14 @@ class ArticleDetailView(DetailView):
     # pk_url_kwarg = 'id'
     # queryset = Article.objects.filter(published=True)
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['name'] = "amirhossein"
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['name'] = "amirhossein"
+        if self.request.user.likes.filter(article__slug=self.object.slug, user_id=self.request.user.id).exists():
+            context['is_liked'] = True
+        else:
+            context['is_liked'] = False
+        return context
 
 
 class ArticleListView(LoginRequiredMixin, ListView):
@@ -242,3 +247,23 @@ class YearArchiveArticleView(YearArchiveView):
     date_field = "pub_date"
     make_object_list = True
     allow_future = True
+
+
+def like(request, slug, pk):
+    if request.user.is_authenticated:
+        try:
+            like = Like.objects.get(article__slug=slug, user_id=request.user.id)
+            like.delete()
+            return JsonResponse({"response": "unliked"})
+        except:
+            Like.objects.create(article_id=pk, user_id=request.user.id)
+            return JsonResponse({"response": "liked"})
+        # return redirect("blog:article_detail", slug)
+
+# def test(request):
+#     print("hello codeyad")
+#     # return redirect("/")
+#     # return JsonResponse({"response": "liked"})
+#     # return JsonResponse({"response": True})
+#     # return JsonResponse({"key": True})
+#     return JsonResponse({"key": "hello codeyad"})
