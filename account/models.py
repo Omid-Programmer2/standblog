@@ -17,6 +17,9 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+    class Meta:
+        verbose_name = "حساب کاربری"
+        verbose_name_plural = "حساب های کاربری"
 
 
 # Profile.objects.get(id=1)
@@ -26,4 +29,5 @@ class Profile(models.Model):
 # class MyTestModel(models.Model):
 #     id = models.BigAutoField()
 #     my_id = models.BigAutoField()
+
 

@@ -1,14 +1,16 @@
 {% extends "admin/base.html" %}
-
-{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+{% load static %}
+{#{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}#}
+{% block title %}مدیریت فروشگاه{% endblock %}
 
 {% block branding %}
 {#<div id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></div>#}
 {#<div id="site-name"><a href="{% url 'admin:index' %}">مدیربت وبلاگ</a></div>#}
-<div id="site-name"><a href="{% url 'admin:index' %}">مدیربت جنگو</a></div>
-{% if user.is_anonymous %}
-  {% include "admin/color_theme_toggle.html" %}
-{% endif %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">مدیربت جنگو</a></h1>
+{#{% if user.is_anonymous %}#}
+{#  {% include "admin/color_theme_toggle.html" %}#}
+{#{% endif %}#}
 {% endblock %}
-
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/override.css" %}">{% endblock %}
 {% block nav-global %}{% endblock %}

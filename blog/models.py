@@ -23,11 +23,15 @@ from django.utils.text import slugify
 # do nothing
 
 class Category(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, verbose_name="عنوان")
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "دسته بندی"
+        verbose_name_plural = "دسته بندی ها"
 
 
 class ArticleManager(models.Manager):
@@ -57,8 +61,8 @@ class Article(models.Model):
     # title = models.CharField(max_length=70, choices=CHOICES, default='A')
 
     # id = models.BigAutoField(primary_key=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='articles')
-    category = models.ManyToManyField(Category, related_name='articles')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='articles', verbose_name="نویسنده مقاله")
+    category = models.ManyToManyField(Category, related_name='articles', verbose_name="دسته بندی")
     # category = models.ManyToManyField(Category, related_name='+')
     # title = models.CharField(max_length=70, unique_for_date='pub_date')
     # title = models.CharField(max_length=70, primary_key=True)
@@ -87,6 +91,9 @@ class Article(models.Model):
         # ordering = ('-updated', '-created')
         # verbose_name = 'post'
         # verbose_name_plural = 'stories'
+
+        verbose_name = "مقاله"
+        verbose_name_plural = "مقالات"
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
@@ -135,8 +142,8 @@ class Article(models.Model):
     #     print('hello')
     #     super(Article, self).save(args, kwargs)
 
-class MyTest(models.Model):
-    title = models.CharField(max_length=50, primary_key=True)
+# class MyTest(models.Model):
+#     title = models.CharField(max_length=50, primary_key=True)
 
 
 # class New(models.Model):
@@ -161,6 +168,10 @@ class Comment(models.Model):
     def __str__(self):
         return self.body[:50]
 
+    class Meta:
+        verbose_name = "نظر"
+        verbose_name_plural = "نظرات"
+
 
 class Message(models.Model):
     title = models.CharField(max_length=100)
@@ -172,3 +183,7 @@ class Message(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "پیام"
+        verbose_name_plural = "پیام ها"
