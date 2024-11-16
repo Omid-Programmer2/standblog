@@ -4,6 +4,7 @@ from django.db.models import SET_DEFAULT, PROTECT, DO_NOTHING, IntegerField
 # from django.utils import timezone
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.html import format_html
 from django.utils.text import slugify
 
 
@@ -66,9 +67,9 @@ class Article(models.Model):
     # category = models.ManyToManyField(Category, related_name='+')
     # title = models.CharField(max_length=70, unique_for_date='pub_date')
     # title = models.CharField(max_length=70, primary_key=True)
-    title = models.CharField(max_length=70)
+    title = models.CharField(max_length=70, verbose_name="عنوان")
     body = models.TextField()
-    image = models.ImageField(upload_to='images/articles')
+    image = models.ImageField(upload_to='images/articles', blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     # pub_date = models.DateField(default=timezone.now())
@@ -130,6 +131,16 @@ class Article(models.Model):
         # return reverse('blog:article_detail', args=[str(self.id)])
         return reverse('blog:article_detail', kwargs={'slug':self.slug})
 
+    # def print_title(self):
+    #     # print(self.title)
+    #     return self.title
+    #
+    # print_title.short_description = "چاپ عنوان"
+
+    def show_image(self):
+        if self.image:
+            return format_html(f'<img src="{self.image.url}" width="60px" height="50px">')
+        return format_html('<h3 style="color: red">تصویر ندارد</h3>')
 
 
     def __str__(self):
