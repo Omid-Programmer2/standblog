@@ -76,7 +76,7 @@ class Article(models.Model):
     # articles = models.Manager()
     published = models.BooleanField(default=True)
     # objects = ArticleManager()
-
+    pub_date = models.DateTimeField(default=timezone.now())
     objects = models.Manager()
     custom_manager = ArticleManager()
     slug = models.SlugField(blank=True, unique=True)

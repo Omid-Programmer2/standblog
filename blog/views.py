@@ -8,8 +8,10 @@ from blog.models import Article, Category, Comment,Message
 from django.core.paginator import Paginator
 from .forms import ContactUsForm, MessageForm
 from django.views.generic.base import View, TemplateView, RedirectView
-from django.views.generic import ListView, DetailView,FormView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView,FormView, CreateView, UpdateView, DeleteView, ArchiveIndexView, YearArchiveView
 from django.urls import reverse, reverse_lazy
+# from django.contrib.auth.mixins import LoginRequiredMixin
+from .mixins import LoginRequiredMixin
 
 # def post_detail(request, title):
 def article_detail(request, slug):
@@ -166,7 +168,7 @@ class ArticleDetailView(DetailView):
     #     return context
 
 
-class ArticleListView(ListView):
+class ArticleListView(LoginRequiredMixin, ListView):
     model = Article
     template_name = "blog/article_list.html"
     context_object_name = 'articles'
@@ -229,3 +231,14 @@ class MessageUpdateView(UpdateView):
 class MessageDeleteView(DeleteView):
     model = Message
     success_url = reverse_lazy("blog:messages_list")
+
+
+class ArchiveIndexArticleView(ArchiveIndexView):
+    model = Article
+    date_field = "updated"
+
+class YearArchiveArticleView(YearArchiveView):
+    model = Article
+    date_field = "pub_date"
+    make_object_list = True
+    allow_future = True
