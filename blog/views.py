@@ -8,7 +8,7 @@ from blog.models import Article, Category, Comment,Message
 from django.core.paginator import Paginator
 from .forms import ContactUsForm, MessageForm
 from django.views.generic.base import View, TemplateView, RedirectView
-from django.views.generic import ListView, DetailView,FormView
+from django.views.generic import ListView, DetailView,FormView, CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 
 # def post_detail(request, title):
@@ -192,3 +192,40 @@ class ContactUsView(FormView):
         Message.objects.create(**form_data)
         # print(form_data['title'])
         return super().form_valid(form)
+
+class MessageView(CreateView):
+    model = Message
+    fields = ('title', 'text', 'date', 'age')
+    # fields = "__all__"
+    success_url = reverse_lazy("home_app:home")
+    # template_name = "blog/contact_us.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['messages'] = Message.objects.all()
+        return context
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.email = self.request.user.email
+        instance.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        print(self.object)
+        return super(MessageView, self).get_success_url()
+
+class MessageListView(ListView):
+    model = Message
+
+class MessageUpdateView(UpdateView):
+    model = Message
+    fields = ('title', 'text', 'age')
+    # template_name_field = "_update_form"
+    template_name = 'blog/message_update_form.html'
+    success_url = reverse_lazy("blog:messages_list")
+
+
+class MessageDeleteView(DeleteView):
+    model = Message
+    success_url = reverse_lazy("blog:messages_list")
